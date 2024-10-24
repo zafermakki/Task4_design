@@ -80,7 +80,7 @@ const Walls = () => {
                                     margin:"20px"
                                 }}
                             >
-                                <Typography variant="body1" sx={{ color: '#121C17', fontWeight: 'bold' }}>
+                                <Typography variant="body1" sx={{ color: '#fff', fontWeight: 'bold' }}>
                                     {product.shade} <br /> {product.type}
                                 </Typography>
                             </Box>

@@ -87,7 +87,7 @@ const Floors = () => {
                                     margin:"20px"
                                 }}
                             >
-                                <Typography variant="body1" sx={{ color: '#121C17', fontWeight: 'bold' }}>
+                                <Typography variant="body1" sx={{ color: (index === 0 || index === 2 || index === 3) ? '#fff' : '#000', fontWeight: 'bold' }}>
                                     {product.shade} <br /> {product.type}
                                 </Typography>
                             </Box>
