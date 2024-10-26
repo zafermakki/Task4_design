@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Button, Box } from '@mui/material';
+import { Grid, Typography, Button, Box, useTheme } from '@mui/material';
 import imgButton from "../../../logos/Vector.png";
 import iconlocation from "../../../logos/location.png"
 import iconemail from "../../../logos/ic_outline-email.png"
@@ -22,6 +22,12 @@ import img12 from "../../../images/exterior4.png"
 
 
 const BusinessExhibtion = () => {
+
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+  const textColor = isDarkMode ? '#FFFFFF' : '#121C17';
+  const backgroundColor = isDarkMode ? '#000' : '#fff';
+
   return (
     <Grid container style={{ paddingTop: '0px', backgroundColor: "#0E7E83", paddingBottom: '2rem' }}>
   {/* Heading */}
@@ -37,9 +43,9 @@ const BusinessExhibtion = () => {
   {/* Interior and Exterior Sections */}
   <Grid container item xs={12} justifyContent="space-around" spacing={0}>
     {/* Interior Section */}
-    <Grid item xs={12} md={5} sx={{ backgroundColor: "#fff", padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
+    <Grid item xs={12} md={5} sx={{ backgroundColor: backgroundColor, padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
       <Grid container alignItems="center" justifyContent="space-between">
-        <Typography variant="h6" sx={{ fontWeight: 'bold', color: "#121C17", textTransform: "uppercase", fontSize: "14px" }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase", fontSize: "14px" }}>
           Interior
         </Typography>
         <Button variant="contained" sx={{ backgroundColor: '#14B05D', color: '#fff',margin:"5px" }}>
@@ -59,9 +65,9 @@ const BusinessExhibtion = () => {
     </Grid>
 
     {/* Exterior Section */}
-    <Grid item xs={12} md={5} sx={{ backgroundColor: "#fff", padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
+    <Grid item xs={12} md={5} sx={{ backgroundColor: backgroundColor, padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
       <Grid container alignItems="center" justifyContent="space-between">
-        <Typography variant="h6" sx={{ fontWeight: 'bold', color: "#121C17", textTransform: "uppercase", fontSize: "14px" }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase", fontSize: "14px" }}>
           Exterior
         </Typography>
         <Button variant="contained" sx={{ backgroundColor: '#14B05D', color: '#fff',margin:"5px" }}>
