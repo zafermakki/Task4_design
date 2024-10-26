@@ -23,7 +23,6 @@ const Verification = () => {
           display: 'flex',
           justifyContent: 'center',
           padding: isMobile ? '0px' : '0px',
-          backgroundColor: '#f5f5f5',
         }}
       >
         {/* Conditionally render images only on large screens */}
@@ -72,7 +71,6 @@ const Verification = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: isMobile ? '20px' : '50px',
-          backgroundColor: '#f5f5f5',
         }}
       >
         <Typography variant="h3" component="h1" gutterBottom align="center" sx={{
@@ -80,7 +78,6 @@ const Verification = () => {
           fontStyle: "normal",
           fontWeight: "700",
           textTransform: "uppercase",
-          color: "#121C17",
           zIndex:"3"
         }}>
           please verify account
@@ -92,7 +89,6 @@ const Verification = () => {
             fontStyle: "normal",
             fontWeight: "700",
             textTransform: "uppercase",
-            color: "#121C17",
           }}
         >
           enter the 6 digit code (contains letters and numbers) that we sent<br/> to your email address to verify your new account
@@ -107,7 +103,6 @@ const Verification = () => {
               fontStyle: "normal",
               fontWeight: "500",
               textTransform: "uppercase",
-              color: "#121C17",
             }}
           >
             valid for 3 minutes

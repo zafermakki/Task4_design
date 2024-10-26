@@ -16,6 +16,7 @@ import { Link } from "react-router-dom"
 const SignUp = () => {
   
   const theme = useTheme();
+  const iconFilter = theme.palette.mode === 'dark' ? 'invert(1)' : 'invert(0)';
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));  // Breakpoint for medium screens
 
   return (
@@ -73,7 +74,6 @@ const SignUp = () => {
         sx={{
           marginLeft: { lg: '50%' }, // Only shift to right on large screens
           padding: { xs: '20px', sm: '50px' },
-          backgroundColor: '#f5f5f5',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -88,7 +88,6 @@ const SignUp = () => {
             fontFamily: 'Lato',
             fontWeight: '700',
             textTransform: 'uppercase',
-            color: '#121C17',
             fontSize: { xs: '24px', sm: '36px' },
           }}
         >
@@ -104,7 +103,6 @@ const SignUp = () => {
             fontFamily: 'Lato',
             fontWeight: '700',
             textTransform: 'uppercase',
-            color: '#121C17',
             fontSize: { xs: '16px', sm: '20px' },
           }}
         >
@@ -133,7 +131,7 @@ const SignUp = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -148,7 +146,7 @@ const SignUp = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logo2} alt="phone-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logo2} alt="phone-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -162,7 +160,7 @@ const SignUp = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logo3} alt="user-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logo3} alt="user-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -176,7 +174,7 @@ const SignUp = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -190,7 +188,7 @@ const SignUp = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -214,7 +212,7 @@ const SignUp = () => {
         </Button>
         
         <Grid container justifyContent="center" sx={{ mt: 1 }}>
-          <Typography sx={{ fontFamily: 'Inter', fontWeight: '500', textTransform: 'uppercase', color: '#121C17' }}>
+          <Typography sx={{ fontFamily: 'Inter', fontWeight: '500', textTransform: 'uppercase' }}>
             Have an account?
           </Typography>
           <Link to="/" style={{ color: "#0E7E83", marginLeft: "4px" }}>

@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 
 const Login = () => {
   const theme = useTheme();
+  const iconFilter = theme.palette.mode === 'dark' ? 'invert(1)' : 'invert(0)';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 
@@ -25,7 +26,6 @@ const Login = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: isMobile ? '20px' : '50px',
-          backgroundColor: '#f5f5f5',
         }}
       >
         <Typography variant="h3" component="h1" gutterBottom align="center" sx={{
@@ -33,7 +33,6 @@ const Login = () => {
             fontStyle: "normal",
             fontWeight: "700",
             textTransform: "uppercase",
-            color: "#121C17",
         }}>
           WELCOME
         </Typography>
@@ -44,7 +43,6 @@ const Login = () => {
             fontStyle: "normal",
             fontWeight: "700",
             textTransform: "uppercase",
-            color: "#121C17",
         }}
         >
           REINVENT YOUR SPACE WITH US
@@ -62,7 +60,7 @@ const Login = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px',filter: iconFilter  }} />
               </InputAdornment>
             ),
           }}
@@ -76,7 +74,15 @@ const Login = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px' }} />
+                <img 
+                  src={logoPassword} 
+                  alt="password-icon" 
+                  style={{ 
+                    width: '24px', 
+                    height: '24px', 
+                    filter: iconFilter 
+                  }} 
+                />
               </InputAdornment>
             ),
           }}
@@ -89,7 +95,6 @@ const Login = () => {
                 fontStyle: "normal",
                 fontWeight: "500",
                 textTransform: "uppercase",
-                color: "#121C17",
             }}
         >
             Don't have an account?
@@ -107,7 +112,6 @@ const Login = () => {
                 fontStyle: "normal",
                 fontWeight: "500",
                 textTransform: "uppercase",
-                color: "#121C17",
             }}
         >
           Forgot Password?

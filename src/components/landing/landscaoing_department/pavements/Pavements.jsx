@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Box, Typography, Button } from '@mui/material';
+import { Grid, Box, Typography, Button,useTheme } from '@mui/material';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import imgBefor from "../../../../images/RectangleGreen.png";
 import imgButton from "../../../../logos/VectorBlack.png";
-
+import "../../SliderCss/slider.css";
 
 // Importing images
 
@@ -14,6 +14,8 @@ import image2 from "../../../../images/Rectangle_62.png";
 import image3 from "../../../../images/Rectangle_63.png";
 
 const Pavements = () => {
+    const theme = useTheme();
+    const isDarkMode = theme.palette.mode === 'dark';
 
     const productsFloors = [
         { shade: '#Shade', type: '#Type', image: image1 }, 
@@ -47,9 +49,9 @@ const Pavements = () => {
     <Grid container spacing={2} sx={{ marginBottom: '4rem' }}>
             {/* Floors Heading */}
             <Grid item xs={12} sm={6}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: "#121C17",textTransform:"uppercase" }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold',textTransform:"uppercase" }}>
                     <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px" }} />
-                    Shrubs
+                    pavements
                 </Typography>
             </Grid>
 
@@ -63,7 +65,7 @@ const Pavements = () => {
 
             {/* Floors Product Carousel */}
             <Grid item xs={12}>
-                <Slider {...settings}>
+                <Slider {...settings} className={isDarkMode ? "slider-dark" : "slider-light"}>
                     {productsFloors.map((product, index) => (
                         <div key={index} style={{ padding: '0 10px' }}>  {/* Added padding around each slide */}
                             <Box

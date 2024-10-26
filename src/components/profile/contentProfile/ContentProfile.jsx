@@ -52,7 +52,7 @@ const ContentProfile = () => {
               height:  150
             }}
           />
-        <Typography variant="body1" sx={{ border: "1px solid #000", borderRadius: "4px" }}>
+        <Typography variant="body1" sx={{ border: "1px solid ", borderRadius: "4px" }}>
           @james_williams
         </Typography>
         </Stack>

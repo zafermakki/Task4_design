@@ -1,0 +1,13 @@
+/* Default (light mode) styles */
+.slider-light .slick-dots li button:before,
+.slider-light .slick-prev:before,
+.slider-light .slick-next:before {
+    color: black;
+}
+
+/* Dark mode styles */
+.slider-dark .slick-dots li button:before,
+.slider-dark .slick-prev:before,
+.slider-dark .slick-next:before {
+    color: white;
+}

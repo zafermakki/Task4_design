@@ -15,6 +15,10 @@ import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
+import{ useTheme }from "@mui/material/styles"
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,7 +61,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavbarLanding = () => {
+const NavbarLanding = ({setmyMOde}) => {
+  const toggleMode = () => {
+    setmyMOde(prevMode => (prevMode === "light" ? "dark" : "light"));
+  };
+  const theme = useTheme()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('md')); // Check if the screen is medium or small
@@ -158,6 +166,12 @@ const NavbarLanding = () => {
                   <CloseIcon sx={{ color: "#000" }} />
                 </IconButton>
               </Box>
+              <MenuItem>
+                D/L Mode
+                <IconButton onClick={toggleMode} color="inherit" sx={{ ml: 2 }}>
+                  {theme.palette.mode === 'dark' ? <WbSunnyIcon sx={{color:"yellow"}}/> : <DarkModeIcon />}
+                </IconButton>
+              </MenuItem>
               <MenuItem onClick={handleMenuClose}>landscaping</MenuItem>
               <MenuItem onClick={handleMenuClose}>decking</MenuItem>
               <MenuItem onClick={handleMenuClose}>gardening</MenuItem>
@@ -169,7 +183,7 @@ const NavbarLanding = () => {
               <MenuItem onClick={handleMenuClose}>showroom</MenuItem>
               <MenuItem onClick={() => navigate('/profile')}>profile</MenuItem>
               <MenuItem onClick={handleMenuClose}>contact us</MenuItem>
-
+              
               {isSmallScreen && (
                 <>
                   <MenuItem onClick={handleMenuClose} sx={{
@@ -182,7 +196,7 @@ const NavbarLanding = () => {
                 </>
               )}
             </Menu>
-
+            
             <Button color="inherit" sx={{ ml: 2 }}>Book Now</Button>
           </Box>
         </Toolbar>

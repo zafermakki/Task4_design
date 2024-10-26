@@ -8,7 +8,7 @@ const LastContent = () => {
   return (
     <Grid container style={{ minHeight: '39.3vh', width: "100%" }}>
       {/* Left Section */}
-      <Grid item xs={12} md={5} style={{ backgroundColor: 'white', minHeight: '39vh', position: "relative" }}>
+      <Grid item xs={12} md={5} style={{ minHeight: '39vh', position: "relative" }}>
         <img src={pale} style={{
           position: "absolute",
           bottom: "0",

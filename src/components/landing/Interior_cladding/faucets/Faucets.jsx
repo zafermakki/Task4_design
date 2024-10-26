@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Box, Typography, Button } from '@mui/material';
+import { Grid, Box, Typography, Button, useTheme } from '@mui/material';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import imgBefor from "../../../../images/Rectangle_69.png";
 import imgButton from "../../../../logos/Vector.png";
-
+import "../../SliderCss/slider.css";
 // Importing images
 
 import image1 from "../../../../images/Rectangle_52.png";
@@ -13,6 +13,13 @@ import image2 from "../../../../images/Rectangle_53.png";
 import image3 from "../../../../images/Rectangle_54.png";
 
 const Faucets = () => {
+
+    const theme = useTheme();
+    const isDarkMode = theme.palette.mode === 'dark';
+    const textColor = isDarkMode ? '#FFFFFF' : '#121C17';
+    const iconColorFilter = isDarkMode 
+        ? 'brightness(0) saturate(100%) invert(14%) sepia(90%) saturate(749%) hue-rotate(133deg) brightness(100%) contrast(102%)' 
+        : 'none';
 
     const productsFloors = [
         { shade: '#Shade', type: '#Type', image: image1 }, 
@@ -46,8 +53,8 @@ const Faucets = () => {
     <Grid container spacing={2} sx={{ marginBottom: '4rem' }}>
             {/* Floors Heading */}
             <Grid item xs={12} sm={6}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: "#121C17",textTransform:"uppercase" }}>
-                    <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px" }} />
+                <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor,textTransform:"uppercase" }}>
+                    <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px",filter: iconColorFilter }} />
                     Faucets
                 </Typography>
             </Grid>
@@ -62,7 +69,7 @@ const Faucets = () => {
 
             {/* Floors Product Carousel */}
             <Grid item xs={12}>
-                <Slider {...settings}>
+                <Slider {...settings} className={isDarkMode ? "slider-dark" : "slider-light"}>
                     {productsFloors.map((product, index) => (
                         <div key={index} style={{ padding: '0 10px' }}>  {/* Added padding around each slide */}
                             <Box

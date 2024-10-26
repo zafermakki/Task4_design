@@ -10,7 +10,7 @@ import AboutServices from './aboutServices/AboutServices';
 import BusinessExhibtion from './business_exhibtion/BusinessExhibtion';
 import Footer from './footer/Footer';
 
-const Landing = () => {
+const Landing = ({setmyMOde}) => {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));  // Detect small screens
@@ -18,7 +18,7 @@ const Landing = () => {
 
   return (
     <Grid container style={{ minHeight: '100vh', paddingTop: '79px' }}> 
-            <NavbarLanding />
+            <NavbarLanding setmyMOde={setmyMOde}/>
             <ImgContent/>
             <InteriorCladding/>
             <LandscapingDepartment/>

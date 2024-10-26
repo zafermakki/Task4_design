@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 const Password = () => {
     
     const theme = useTheme();
+    const iconFilter = theme.palette.mode === 'dark' ? 'invert(1)' : 'invert(0)';
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
   return (
@@ -53,7 +54,6 @@ const Password = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: isMobile ? '20px' : '50px',
-          backgroundColor: '#f5f5f5',
         }}
       >
         <Typography variant="h3" component="h1" gutterBottom align="center" sx={{
@@ -61,7 +61,6 @@ const Password = () => {
             fontStyle: "normal",
             fontWeight: "700",
             textTransform: "uppercase",
-            color: "#121C17",
         }}>
           change password
         </Typography>
@@ -75,7 +74,7 @@ const Password = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px',filter: iconFilter }} />
               </InputAdornment>
             ),
           }}
@@ -89,7 +88,7 @@ const Password = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px' }} />
+                <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px',filter: iconFilter }} />
               </InputAdornment>
             ),
           }}
@@ -104,7 +103,7 @@ const Password = () => {
             InputProps={{
                 startAdornment: (
                 <InputAdornment position="start">
-                    <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px' }} />
+                    <img src={logoPassword} alt="password-icon" style={{ width: '24px', height: '24px',filter: iconFilter }} />
                 </InputAdornment>
                 ),
             }}
@@ -117,7 +116,6 @@ const Password = () => {
                 fontStyle: "normal",
                 fontWeight: "500",
                 textTransform: "uppercase",
-                color: "#121C17",
             }}
         >
             we will send you a 6 digit code to verify your account
