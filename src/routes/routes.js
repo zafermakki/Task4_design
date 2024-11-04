@@ -6,6 +6,8 @@ import Password from "../components/password/Password";
 import Verification from "../components/verification/Verification";
 import Landing from "../components/landing/Landing";
 import Profile from "../components/profile/Profile";
+import VerificationChange from "../components/password/verification_change/VerificationChange";
+import ChangePassword from "../components/password/chnagepassword/ChangePassword";
 
 export const routes = (setmyMOde) => createBrowserRouter([
   {
@@ -25,11 +27,19 @@ export const routes = (setmyMOde) => createBrowserRouter([
     element: <Verification />
   },
   {
+    path:'/verificationChange',
+    element: <VerificationChange/>
+  },
+  {
+    path:'/confirmPassword',
+    element:<ChangePassword/>
+  },
+  {
     path: '/landing',
     element: <Landing setmyMOde={setmyMOde} />
   },
   {
     path: '/profile',
-    element: <Profile />
+    element: <Profile setmyMOde={setmyMOde}/>
   }
 ]);

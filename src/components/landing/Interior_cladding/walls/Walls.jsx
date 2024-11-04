@@ -7,6 +7,7 @@ import imgBefor from "../../../../images/Rectangle_69.png";
 import imgButton from "../../../../logos/Vector.png";
 import "../../SliderCss/slider.css";
 // Importing images
+import { useTranslation } from 'react-i18next';
 
 import image1 from "../../../../images/Rectangle_46.png";
 import image2 from "../../../../images/Rectangle_47.png";
@@ -14,7 +15,11 @@ import image3 from "../../../../images/Rectangle_48.png";
 
 const Walls = () => {
 
+    const [t, i18n] = useTranslation();
+
     const theme = useTheme();
+    const isRtl = theme.direction === 'rtl';
+
     const isDarkMode = theme.palette.mode === 'dark';
     const textColor = isDarkMode ? '#FFFFFF' : '#121C17';
     const iconColorFilter = isDarkMode 
@@ -54,13 +59,19 @@ const Walls = () => {
             {/* Floors Heading */}
             <Grid item xs={12} sm={6}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor,textTransform:"uppercase" }}>
-                    <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px",filter: iconColorFilter }} />
-                    Walls
+                    <img src={imgBefor}  style={{ 
+                        position: "absolute", 
+                        [isRtl ? 'right' : 'left']: "0%", // Conditional alignment based on isRtl
+                        width: "30px", 
+                        height: "30px", 
+                        filter: iconColorFilter 
+                    }}  />
+                    {t('Walls')}
                 </Typography>
             </Grid>
 
             {/* View All Button */}
-            <Grid item xs={12} sm={6} textAlign="right">
+            <Grid item xs={12} sm={6} textAlign={isRtl ? "left" : "right"}>
                 <Button variant="contained" sx={{ backgroundColor: '#004d40', color: '#fff' }}>
                     View All
                     <img src={imgButton} style={{ width: "15px", margin: "5px" }} />

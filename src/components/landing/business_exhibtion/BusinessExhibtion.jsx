@@ -4,6 +4,7 @@ import imgButton from "../../../logos/Vector.png";
 import iconlocation from "../../../logos/location.png"
 import iconemail from "../../../logos/ic_outline-email.png"
 import whatsapp from "../../../logos/whatsapp.png"
+import { useTranslation } from 'react-i18next';
 
 import img1 from "../../../images/interior1.png"
 import img2 from "../../../images/interior2.png"
@@ -22,6 +23,7 @@ import img12 from "../../../images/exterior4.png"
 
 
 const BusinessExhibtion = () => {
+  const [t, i18n] = useTranslation();
 
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -36,7 +38,7 @@ const BusinessExhibtion = () => {
       variant="h6"
       sx={{ fontWeight: 'bold', color: "#121C17", textTransform: "uppercase", fontSize: { xs: "25px", sm: "30px", md: "35px" } }}
     >
-      Business Exhibition
+      {t('Business_Exhibition')}
     </Typography>
   </Grid>
 
@@ -46,7 +48,7 @@ const BusinessExhibtion = () => {
     <Grid item xs={12} md={5} sx={{ backgroundColor: backgroundColor, padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
       <Grid container alignItems="center" justifyContent="space-between">
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase", fontSize: "14px" }}>
-          Interior
+          {t('Interior')}
         </Typography>
         <Button variant="contained" sx={{ backgroundColor: '#14B05D', color: '#fff',margin:"5px" }}>
           View All
@@ -68,7 +70,7 @@ const BusinessExhibtion = () => {
     <Grid item xs={12} md={5} sx={{ backgroundColor: backgroundColor, padding: "10px", margin: { xs: "10px 0", md: "10px" } }}>
       <Grid container alignItems="center" justifyContent="space-between">
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase", fontSize: "14px" }}>
-          Exterior
+          {t('Exterior')}
         </Typography>
         <Button variant="contained" sx={{ backgroundColor: '#14B05D', color: '#fff',margin:"5px" }}>
           View All

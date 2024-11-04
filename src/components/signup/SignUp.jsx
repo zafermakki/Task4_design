@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, {useState} from 'react'; 
 import NavBar from "../navbar/NavBar"
 import img3 from "../../images/Rectangle_13.png";
 import logo from "../../logos/logo.png";
@@ -11,9 +11,65 @@ import logoPassword from "../../logos/carbon_password.png"
 import { Grid, Box, TextField, InputAdornment, Button, Typography, useMediaQuery, Avatar } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import SelectCity from './selectCity/SelectCity';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from 'react-i18next';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const SignUp = () => {
+
+  const navigate = useNavigate()
+
+  const [userName, setUserName]= useState('')
+  const [email, setEmail]= useState('')
+  const [password, setPassword]= useState('')
+  const [confirmPassword, setConfirmPassword]= useState('')
+  const [phoneNumber, setPhoneNumber]= useState('')
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+
+  const handleChangeCountry = (event) => {
+      setCountry(event.target.value);
+  };
+
+  const handleChangeCity = (event) => {
+      setCity(event.target.value);
+  };
+
+  const handleSignPage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('full_name', userName);
+      formData.append('phone', phoneNumber);
+      formData.append('address', 'ss');
+      formData.append('governorate', country);
+      formData.append('city', city);
+      formData.append('email', email);
+      formData.append('password', password);
+  
+      const response = await fetch('https://backendsec3.trainees-mad-s.com/api/register', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const data = await response.json();
+      console.log('Response:', data);
+  
+      if (response.ok) {
+        alert(data.message);
+        navigate('/verification', { state: { email } });
+      } else {
+        alert(data.message || 'An error occurred');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+  const [t, i18n] = useTranslation();
   
   const theme = useTheme();
   const iconFilter = theme.palette.mode === 'dark' ? 'invert(1)' : 'invert(0)';
@@ -91,7 +147,7 @@ const SignUp = () => {
             fontSize: { xs: '24px', sm: '36px' },
           }}
         >
-          SIGN UP
+          {t('SIGN_UP')}
         </Typography>
 
         <Typography
@@ -122,12 +178,15 @@ const SignUp = () => {
         </Box>
 
         {/* Form Fields */}
+
         <TextField
           label="EMAIL ADDRESS"
           type="email"
           variant="outlined"
+          value={email}
           fullWidth
           margin="normal"
+          onChange={(e) => setEmail(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -143,6 +202,8 @@ const SignUp = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -157,6 +218,8 @@ const SignUp = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -171,6 +234,8 @@ const SignUp = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -185,6 +250,8 @@ const SignUp = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -193,12 +260,57 @@ const SignUp = () => {
             ),
           }}
         />
-        <SelectCity />
+         <div style={{
+          display:"flex",
+          justifyContent:"center"
+      }}>
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-country">country</InputLabel>
+                <Select
+                    labelId="demo-select-country"
+                    id="demo-select-country"
+                    value={country}
+                    label="country"
+                    onChange={handleChangeCountry}
+                    sx={{
+                        width:"120px"
+                    }}
+                >
+                <MenuItem value="">
+                <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Syria</MenuItem>
+                <MenuItem value={20}>UAE</MenuItem>
+                <MenuItem value={30}>USA</MenuItem>
+            </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-city">city</InputLabel>
+                <Select
+                    labelId="demo-select-city"
+                    id="demo-select-city"
+                    value={city}
+                    label="city"
+                    onChange={handleChangeCity}
+                    sx={{
+                        width:"120px"
+                    }}
+                >
+                <MenuItem value="">
+                <em>None</em>
+                </MenuItem>
+                <MenuItem value={40}>Aleppo</MenuItem>
+                <MenuItem value={50}>Dubia</MenuItem>
+                <MenuItem value={60}>NewYork</MenuItem>
+            </Select>
+        </FormControl>
+      </div>
 
         <Button
           variant="contained"
           color="primary"
           fullWidth
+          onClick={handleSignPage}
           sx={{
             mt: 2,
             color: '#000',
@@ -208,15 +320,14 @@ const SignUp = () => {
             borderRadius: '10px',
           }}
         >
-          Create Account
+          {t('Create_Account')}
         </Button>
-        
         <Grid container justifyContent="center" sx={{ mt: 1 }}>
           <Typography sx={{ fontFamily: 'Inter', fontWeight: '500', textTransform: 'uppercase' }}>
-            Have an account?
+            {t('Have_an_account')}
           </Typography>
           <Link to="/" style={{ color: "#0E7E83", marginLeft: "4px" }}>
-            Login
+            {t('Log_In')}
           </Link>
         </Grid>
       </Grid>

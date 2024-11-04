@@ -1,16 +1,16 @@
 import React,{useState} from 'react';
-import NavBar from "../navbar/NavBar"
-import img2 from "../../images/Rectangle_12.png";
-import logo from "../../logos/logo.png"
-import logoEmail from "../../logos/ic_outline-email.png"
-import logoPassword from "../../logos/carbon_password.png"
+import NavBar from "../../navbar/NavBar"
+import img2 from "../../../images/Rectangle_12.png";
+import logo from "../../../logos/logo.png"
+import logoEmail from "../../../logos/ic_outline-email.png"
+import logoPassword from "../../../logos/carbon_password.png"
 import {Grid,Box, TextField,InputAdornment, Button, Typography, useMediaQuery} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 
-const Password = () => {
+const ChangePassword = () => {
   
   const [t, i18n] = useTranslation();
 
@@ -18,29 +18,38 @@ const Password = () => {
     const iconFilter = theme.palette.mode === 'dark' ? 'invert(1)' : 'invert(0)';
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const [email,setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+    const [message, setMessage] = useState();
     const navigate = useNavigate()
 
-    const handleChangePassword = async () => {
-      try{
-          const formData = new FormData()
-          formData.append('email',email)
-          
-          const response = await fetch('https://backendsec3.trainees-mad-s.com/api/user/password/forgot-password',{
-            method:'POST',
-            body:formData
-          })
-          const data = await response.json()
-          if (response.ok) {
-            alert(data.message)
-            navigate('/verificationChange', {state:{email}})
-          } else {
-            alert(data.message || t('error-occured'));
-          }
-      }catch(error){
-          console.error('error',error);
-      }
+    const handleConfirm = async () => {
+        if (password != confirmPassword) {
+            alert('not match')
+            return;
+        }
+        try{
+            const formData = new FormData()
+            formData.append('password',password)
+            formData.append('password_confirmation',confirmPassword)
+            const response = await fetch('https://backendsec3.trainees-mad-s.com/api/user/password/reset-password',{
+                method:'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
+                body:formData
+            })
+            const data = await response.json();
+            if (response.ok) {
+                navigate('/')
+            } else {
+                alert('error')
+            }
+        }catch(error) {
+            console.error('error',error)
+        } 
     }
+
   
   return (
     <Grid container style={{ minHeight: '100vh', paddingTop: '79px' }}> 
@@ -94,28 +103,14 @@ const Password = () => {
           {t('change_password')}
         </Typography>
 
-
-        <TextField
-          label="EMAIL ADDRESS"
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          margin="normal"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <img src={logoEmail} alt="email-icon" style={{ width: '24px', height: '24px',filter: iconFilter }} />
-              </InputAdornment>
-            ),
-          }}
-        />
         <TextField
           label="PASSWORD"
           type="password"
           variant="outlined"
           fullWidth
+          value={password}
           margin="normal"
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -131,6 +126,8 @@ const Password = () => {
             variant="outlined"
             fullWidth
             margin="normal"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             InputProps={{
                 startAdornment: (
                 <InputAdornment position="start">
@@ -158,7 +155,7 @@ const Password = () => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleChangePassword}
+          onClick={handleConfirm}
           style={{ marginTop: '20px',
                   color:"#000",
                   boxSizing: "border-box",
@@ -177,4 +174,4 @@ const Password = () => {
   )
 }
 
-export default Password
+export default ChangePassword

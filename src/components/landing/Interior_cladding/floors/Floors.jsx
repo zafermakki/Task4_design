@@ -13,9 +13,15 @@ import image5 from "../../../../images/Rectangle_43.png";
 import image6 from "../../../../images/Rectangle_44.png";
 import image7 from "../../../../images/Rectangle_45.png";
 import "../../SliderCss/slider.css"; // Add a CSS file for custom slider styles
+import { useTranslation } from 'react-i18next';
+
 
 const Floors = () => {
+  const [t, i18n] = useTranslation();
+
     const theme = useTheme();
+    const isRtl = theme.direction === 'rtl';
+    
     const isDarkMode = theme.palette.mode === 'dark';
     const textColor = isDarkMode ? '#FFFFFF' : '#121C17';
     const iconColorFilter = isDarkMode 
@@ -52,48 +58,57 @@ const Floors = () => {
 
     return (
         <Grid container spacing={2} sx={{ marginBottom: '4rem' }}>
-            <Grid item xs={12} sm={6}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase" }}>
-                    <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px", filter: iconColorFilter }} />
-                    FLOORS
-                </Typography>
-            </Grid>
+    <Grid item xs={12} sm={6}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: textColor, textTransform: "uppercase" }}>
+        <img 
+            src={imgBefor} 
+            style={{ 
+                position: "absolute", 
+                [isRtl ? 'right' : 'left']: "0%", // Conditional alignment based on isRtl
+                width: "30px", 
+                height: "30px", 
+                filter: iconColorFilter 
+            }} 
+        />
+            {t('FLOORS')}
+        </Typography>
+    </Grid>
 
-            <Grid item xs={12} sm={6} textAlign="right">
-                <Button variant="contained" sx={{ backgroundColor: '#004d40', color: '#fff' }}>
-                    View All
-                    <img src={imgButton} style={{ width: "15px", margin: "5px" }} />
-                </Button>
-            </Grid>
+    <Grid item xs={12} sm={6} textAlign={isRtl ? "left" : "right"}>
+        <Button variant="contained" sx={{ backgroundColor: '#004d40', color: '#fff' }}>
+            View All
+            <img src={imgButton} style={{ width: "15px", margin: "5px" }} />
+        </Button>
+    </Grid>
 
-            <Grid item xs={12}>
-                <Slider {...settings} className={isDarkMode ? "slider-dark" : "slider-light"}>
-                    {productsFloors.map((product, index) => (
-                        <div key={index} style={{ padding: '0 10px' }}>
-                            <Box
-                                sx={{
-                                    height: '200px',
-                                    backgroundImage: `url(${product.image})`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    overflow: 'hidden',
-                                    display: 'flex',
-                                    alignItems: 'flex-end',
-                                    backgroundColor: 'white',
-                                    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-                                    padding: '10px',
-                                    margin: "20px"
-                                }}
-                            >
-                                <Typography variant="body1" sx={{ color: (index === 0 || index === 2 || index === 3) ? '#fff' : '#000', fontWeight: 'bold' }}>
-                                    {product.shade} <br /> {product.type}
-                                </Typography>
-                            </Box>
-                        </div>
-                    ))}
-                </Slider>
-            </Grid>
-        </Grid>
+    <Grid item xs={12}>
+        <Slider {...settings} className={isDarkMode ? "slider-dark" : "slider-light"}>
+            {productsFloors.map((product, index) => (
+                <div key={index} style={{ padding: '0 10px' }}>
+                    <Box
+                        sx={{
+                            height: '200px',
+                            backgroundImage: `url(${product.image})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            backgroundColor: 'white',
+                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                            padding: '10px',
+                            margin: "20px"
+                        }}
+                    >
+                        <Typography variant="body1" sx={{ color: (index === 0 || index === 2 || index === 3) ? '#fff' : '#000', fontWeight: 'bold' }}>
+                            {product.shade} <br /> {product.type}
+                        </Typography>
+                    </Box>
+                </div>
+            ))}
+        </Slider>
+    </Grid>
+</Grid>
     );
 };
 

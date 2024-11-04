@@ -18,6 +18,9 @@ import { useNavigate } from 'react-router-dom';
 import{ useTheme }from "@mui/material/styles"
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
+import i18next from 'i18next';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -35,22 +38,25 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme,langDir }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: langDir === 'rtl' ? 'flex-end' : 'flex-start',
+  right: langDir === 'rtl' ? 'unset': 0,
+  left: langDir === 'rtl' ? 0 : 'unset',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme,langDir }) => ({
   color: 'inherit',
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: langDir === 'rtl' ? theme.spacing(1) : `calc(1rem + ${theme.spacing(4)})`,
+    paddingRight:langDir === 'rtl' ? `calc(1rem + ${theme.spacing(4)})` : theme.spacing(1),
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
@@ -62,22 +68,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const NavbarLanding = ({setmyMOde}) => {
+  const [t, i18n] = useTranslation();
+  const langDir = i18next.dir();
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);  // Change language in i18n
+    localStorage.setItem('language', language); // Store language in localStorage
+  };
+
   const toggleMode = () => {
     setmyMOde(prevMode => (prevMode === "light" ? "dark" : "light"));
   };
-  const theme = useTheme()
+
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('md')); // Check if the screen is medium or small
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const navigate = useNavigate();
 
-  // Handle menu open
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Handle menu close
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -105,7 +117,7 @@ const NavbarLanding = ({setmyMOde}) => {
               component="div" 
               sx={{ flexGrow: 1, textTransform: "uppercase", fontSize: "15px", display: 'flex', alignItems: 'center' }}
             >
-              The Construction and<br />landscaping company
+              {t('The_Construction_and')}<br />{t('landscaping_company')}
               <hr 
                 style={{
                   width: '1px',
@@ -121,20 +133,20 @@ const NavbarLanding = ({setmyMOde}) => {
           {!isSmallScreen && (
              <>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 8, textTransform: "uppercase", fontSize: "15px" }}>
-                  home
+                  {t('home')}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 8, textTransform: "uppercase", fontSize: "15px" }}>
-                  about us
+                  {t('about_us')}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 80, textTransform: "uppercase", fontSize: "15px" }}>
-                  projects
+                  {t('projects')}
                 </Typography>
               </>
           )}
 
           <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}> 
             <Search sx={{ mr: 2 }}>
-              <SearchIconWrapper>
+              <SearchIconWrapper langDir={langDir}>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
@@ -172,17 +184,22 @@ const NavbarLanding = ({setmyMOde}) => {
                   {theme.palette.mode === 'dark' ? <WbSunnyIcon sx={{color:"yellow"}}/> : <DarkModeIcon />}
                 </IconButton>
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>landscaping</MenuItem>
-              <MenuItem onClick={handleMenuClose}>decking</MenuItem>
-              <MenuItem onClick={handleMenuClose}>gardening</MenuItem>
-              <MenuItem onClick={handleMenuClose}>interlocking</MenuItem>
-              <MenuItem onClick={handleMenuClose}>floral design</MenuItem>
-              <MenuItem onClick={handleMenuClose}>pools</MenuItem>
-              <MenuItem onClick={handleMenuClose}>railings</MenuItem>
-              <MenuItem onClick={handleMenuClose}>woodworking</MenuItem>
-              <MenuItem onClick={handleMenuClose}>showroom</MenuItem>
-              <MenuItem onClick={() => navigate('/profile')}>profile</MenuItem>
-              <MenuItem onClick={handleMenuClose}>contact us</MenuItem>
+              <MenuItem onClick={() => changeLanguage('ar')}>ar</MenuItem>
+              <MenuItem onClick={() => changeLanguage('en')}>en</MenuItem>
+              <MenuItem onClick={() => changeLanguage('tr')}>tr</MenuItem>
+              <MenuItem onClick={() => changeLanguage('de')}>de</MenuItem>
+              <MenuItem onClick={() => changeLanguage('fr')}>fr</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('landscaping')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('decking')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('gardening')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('interlocking')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('floral_design')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('pools')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('railings')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('woodworking')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('showroom')}</MenuItem>
+              <MenuItem onClick={() => navigate('/profile')}>{t('profile')}</MenuItem>
+              <MenuItem onClick={handleMenuClose}>{t('contact_us')}</MenuItem>
               
               {isSmallScreen && (
                 <>
@@ -190,14 +207,14 @@ const NavbarLanding = ({setmyMOde}) => {
                     color:"#0E7E83",
                     fontWeight:"600"
                   }}>The List</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>home</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>about us</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>projects</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>{t('home')}</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>{t('about_us')}</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>{t('projects')}</MenuItem>
                 </>
               )}
             </Menu>
             
-            <Button color="inherit" sx={{ ml: 2 }}>Book Now</Button>
+            <Button color="inherit" sx={{ ml: 2 }}>{t('Book_Now')}</Button>
           </Box>
         </Toolbar>
       </AppBar>

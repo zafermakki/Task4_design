@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import imgBefor from "../../../../images/RectangleGreen.png";
 import imgButton from "../../../../logos/VectorBlack.png";
 import "../../SliderCss/slider.css";
+import { useTranslation } from 'react-i18next';
 
 // Importing images
 
@@ -14,7 +15,11 @@ import image2 from "../../../../images/Rectangle_62.png";
 import image3 from "../../../../images/Rectangle_63.png";
 
 const Pavements = () => {
+    const [t, i18n] = useTranslation();
+    
+    
     const theme = useTheme();
+    const isRtl = theme.direction === 'rtl';
     const isDarkMode = theme.palette.mode === 'dark';
 
     const productsFloors = [
@@ -50,13 +55,18 @@ const Pavements = () => {
             {/* Floors Heading */}
             <Grid item xs={12} sm={6}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold',textTransform:"uppercase" }}>
-                    <img src={imgBefor} style={{ position: "absolute", left: "0%", width: "30px", height: "30px" }} />
-                    pavements
+                    <img src={imgBefor}  style={{ 
+                            position: "absolute", 
+                            [isRtl ? 'right' : 'left']: "0%", // Conditional alignment based on isRtl
+                            width: "30px", 
+                            height: "30px", 
+                        }}  />
+                    {t('pavements')}
                 </Typography>
             </Grid>
 
             {/* View All Button */}
-            <Grid item xs={12} sm={6} textAlign="right">
+            <Grid item xs={12} sm={6} textAlign={isRtl ? "left" : "right"}>
                 <Button variant="contained" sx={{ backgroundColor: '#14B05D', color: '#000' }}>
                     View All
                     <img src={imgButton} style={{ width: "15px", margin: "5px" }} />

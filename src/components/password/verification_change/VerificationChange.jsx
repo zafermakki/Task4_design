@@ -1,14 +1,14 @@
 import React,{ useState, useRef } from 'react';
-import NavBar from "../navbar/NavBar";
-import imgcircle1 from "../../images/Ellipse_7.png";
-import imgcircle2 from "../../images/Ellipse_8.png";
-import imgcircleEmail from "../../images/morphis-mail-with-a-frosted-glass-effect.png";
+import NavBar from "../../navbar/NavBar";
+import imgcircle1 from "../../../images/Ellipse_7.png";
+import imgcircle2 from "../../../images/Ellipse_8.png";
+import imgcircleEmail from "../../../images/morphis-mail-with-a-frosted-glass-effect.png";
 import { Grid,TextField, Button, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Verification = () => {
+const VerificationChange = () => {
   const [t, i18n] = useTranslation();
 
   const theme = useTheme();
@@ -41,17 +41,17 @@ const Verification = () => {
     }
   
     try {
-      const response = await fetch("https://backendsec3.trainees-mad-s.com/api/verify-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, code: verificationCode }),
+        const formData = new FormData()
+        formData.append('email',email)
+        formData.append('code',verificationCode)
+        const response = await fetch("https://backendsec3.trainees-mad-s.com/api/user/password/verify-forgot-Password-code", {
+            method: "POST",
+            body:formData
       });
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        navigate("/profile");
+        navigate("/confirmPassword");
       } else {
         alert(data.message || "An error occurred");
       }
@@ -248,4 +248,4 @@ const Verification = () => {
   )
 }
 
-export default Verification;
+export default VerificationChange;

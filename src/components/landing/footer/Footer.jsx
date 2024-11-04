@@ -4,8 +4,11 @@ import Typography from '@mui/material/Typography';
 import logo from "../../../logos/logo.png"
 import logofacebook from "../../../logos/facebook.png"
 import logoinstagram from "../../../logos/instagram.png"
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const [t, i18n] = useTranslation();
+
   return (
     <Box 
       sx={{
@@ -34,39 +37,39 @@ const Footer = () => {
           </Box>
           <Box sx={{ marginLeft: 1 }}>
             <Typography sx={{ textTransform: "uppercase" }}>
-              The Construction and Landscaping Company
+              {t('The_Construction_and_Landscaping_Company')}
             </Typography>
           </Box>
         </Box>
 
         <Box sx={{ margin: 1 }}>
           <Typography sx={{ textTransform: "uppercase" }}>
-            Business Hours:<br />
-            Monday - Friday: 8 AM - 6 PM<br />
-            Saturday: 9 AM - 4 PM<br />
-            Sunday: Closed<br />
+            {t('Business_Hours')}<br />
+            {t('Monday_Friday')}<br />
+            {t('Saturday')}<br />
+            {t('Sunday')}<br />
           </Typography>
         </Box>
         
         <Box sx={{ margin: 1 }}>
           <Typography>
-            Quick Links:
+            {t('Quick_Links')}
           </Typography>
           <ul>
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Projects</li>
-            <li>Contact</li>
+            <li>{t('home')}</li>
+            <li>{t('about_us')}</li>
+            <li>{t('projects')}</li>
+            <li>{t('Contact')}</li>
           </ul>
         </Box>
 
         <Box sx={{ margin: 1 }}>
           <Typography>
-            Awards and Certifications:
+            {t('Awards_and_Certifications')}
           </Typography>
           <ul>
-            <li>“Proud member of the National Association of Landscape Professionals”</li>
-            <li>“Certified Green Builder”</li>
+            <li>{t('Proud_member_of_the_National_Association_of_Landscape_Professionals')}</li>
+            <li>{t('Certified_Green_Builder')}</li>
           </ul>
         </Box>
       </Box>
@@ -77,7 +80,7 @@ const Footer = () => {
 
       <Box sx={{ textAlign: 'center', padding: 1 }}>
         <Typography variant="body2">
-          © {new Date().getFullYear()}  Z and N Construction and Landscaping. All rights reserved.
+          © {new Date().getFullYear()}  {t('Z_and_N_Construction_and_Landscaping_All_rights_reserved')}
         </Typography>
       </Box>
     </Box>

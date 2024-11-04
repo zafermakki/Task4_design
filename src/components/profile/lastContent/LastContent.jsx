@@ -1,10 +1,55 @@
 import React from 'react';
 import { Grid, Box, Typography, Button, useMediaQuery } from '@mui/material';
 import pale from "../../../images/pale-85.png";
+import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 
 const LastContent = () => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const [t, i18n] = useTranslation();
+  const navigate = useNavigate();
 
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Do you want to logout?",
+      icon: "question",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch('https://backendsec3.trainees-mad-s.com/api/logout', {
+          method: 'GET', // Change to 'POST' if required by the backend
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            localStorage.removeItem("token");
+            Swal.fire({
+              title: "Logged out successfully",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => navigate('/'));
+          } else {
+            throw new Error("Failed to log out");
+          }
+        })
+        .catch(error => {
+          Swal.fire({
+            title: "Logout failed",
+            text: error.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        });
+      }
+    });
+  };
+  
   return (
     <Grid container style={{ minHeight: '39.3vh', width: "100%" }}>
       {/* Left Section */}
@@ -24,16 +69,16 @@ const LastContent = () => {
             margin: "50px",
           }}>
             <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", width: "150px", zIndex: "2" }}>
-              Name
+              {t('Name')}
             </Typography>
             <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", width: "150px", zIndex: "2" }}>
-              Country
+              {t('Country')}
             </Typography>
             <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", width: "150px", zIndex: "2" }}>
-              Email
+              {t('Email')}
             </Typography>
             <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", width: "150px", zIndex: "2" }}>
-              Phone
+              {t('Phone')}
             </Typography>
           </Box>
         )}
@@ -67,25 +112,25 @@ const LastContent = () => {
             <>
               {/* On small screens, stack labels with values */}
               <Typography sx={{ color: "#fff", fontWeight: "600", textTransform: "uppercase", fontSize: "20px" }}>
-                Name
+                {t('Name')}
               </Typography>
               <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px" }}>
                 james williams
               </Typography>
               <Typography sx={{ color: "#fff", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", mt: 1 }}>
-                Country
+                {t('Country')}
               </Typography>
               <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px" }}>
                 usa - Washington
               </Typography>
               <Typography sx={{ color: "#fff", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", mt: 1 }}>
-                Email
+                {t('Email')}
               </Typography>
               <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px" }}>
                 james96@gmail.com
               </Typography>
               <Typography sx={{ color: "#fff", fontWeight: "600", textTransform: "uppercase", fontSize: "20px", mt: 1 }}>
-                Phone
+                {t('Phone')}
               </Typography>
               <Typography sx={{ color: "#14B05D", fontWeight: "600", textTransform: "uppercase", fontSize: "20px" }}>
                 +1 202 555 1234
@@ -99,13 +144,16 @@ const LastContent = () => {
           right: "0",
           bottom: "0"
         }}>
-          <Button variant='contained' sx={{
+          <Button 
+            variant='contained' 
+            onClick={handleLogOut}
+          sx={{
             color: "#fff",
             backgroundColor: "red",
             border: "2px solid #fff",
             margin: "10px",
           }}>
-            Log out
+            {t('Log_out')}
           </Button>
         </Box>
       </Grid>

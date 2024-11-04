@@ -5,6 +5,8 @@ import { useTheme } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -22,22 +24,25 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme,langDir }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: langDir === 'rtl' ? 'flex-end' : 'flex-start',
+  right: langDir === 'rtl' ? 'unset': 0,
+  left: langDir === 'rtl' ? 0 : 'unset',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme,langDir }) => ({
   color: 'inherit',
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: langDir === 'rtl' ? theme.spacing(1) : `calc(1rem + ${theme.spacing(4)})`,
+    paddingRight:langDir === 'rtl' ? `calc(1rem + ${theme.spacing(4)})` : theme.spacing(1),
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
@@ -49,6 +54,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const ImgContent = () => {
+      const [t, i18n] = useTranslation();
+      const langDir = i18next.dir();
       const theme = useTheme();
       const isMobile = useMediaQuery(theme.breakpoints.down('sm'));  // Detect small screens
   return (
@@ -102,12 +109,12 @@ const ImgContent = () => {
               mb: 2 // Adds some space between the text and the search bar
             }}
         >
-              Transform your vision into reality with our<br/>
-              expert construction and landscaping services<br/>
-              where quality meets creativity.
+              {t('img_text_one')}<br/>
+              {t('img_text_two')}<br/>
+              {t('img_text_three')}
           </Box>
             <Search sx={{ display: 'flex', alignItems: 'center',maxWidth:"250px",color:"#fff" }}>
-                <SearchIconWrapper>
+                <SearchIconWrapper langDir={langDir}>
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
